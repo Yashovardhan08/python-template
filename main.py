@@ -41,27 +41,26 @@ def parse(url,model=None,fps=5):
             break
         
         if frameNumber % frame_skip == 0:
-            # cv2.imshow("Video", frame)
-            # cv2.waitKey(1)
             val = {"timestamp":timestamp,"model_output":""}
             results =  model.process(frame)
             if not results.detections:
                 val["model_output"]="{}"
             else :
+                detectionList = []
                 for detection in results.detections:
-                    val["model_output"] = json.dumps(detection,cls=DetectionJSONEncoder)
+                    detectionList.append(detection)
+                val["model_output"] =detectionList
 
 
             output.append(val)
             
         frameNumber += 1
-
-    return json.dumps(output)
+    with open("output.json", "w") as outfile:
+        json.dump(output, outfile,cls=DetectionJSONEncoder)
 
 def main():
     URL = os.environ['CONTENT_URL']
-    print(parse(URL))
-    print("main")
+    parse(URL)
     
 if __name__ == "__main__":
     main()
