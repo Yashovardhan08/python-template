@@ -7,6 +7,9 @@ Template to run python in a Docker container using docker-compose
 
 ## run
 
+
+
 ```sh
+export CONTENT_URL='insert_url_to_a_video'
 docker-compose up --build
 ```
