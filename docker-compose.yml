@@ -1,7 +1,9 @@
-version: "3.7"
+# version: "3.7"
 services:
   operator:
     build: .
     image: python_template:0.1.0
-    volumes: 
+    volumes:
       - ${PWD}:/usr/app/src/
+    environment:
+      - CONTENT_URL=${CONTENT_URL}
